@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Pengajuan {
    private String gender;
    private String kegiatan;
    private String keterangan;
-   private String jumlah;
+   private BigDecimal jumlah;
    private String divisi;
    private String tanggal;
    private String terbilang;
@@ -44,6 +45,11 @@ public class Pengajuan {
    private LocalDateTime tanggalDibuat;
    @UpdateTimestamp
    private LocalDateTime tanggalDiupdate;
+
+   @OneToMany(mappedBy = "pengajuan", fetch = FetchType.LAZY)
+   @JsonManagedReference
+   private List<Item> items;
+
 
    @OneToMany(mappedBy = "pengajuan", fetch = FetchType.LAZY)
    @JsonManagedReference

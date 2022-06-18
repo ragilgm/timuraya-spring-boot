@@ -15,6 +15,5 @@ public class HistoryPengajuanRequestDto {
     private Long pengajuanId;
     private HistoryPengajuan.Status status;
     private String catatan;
-    private String nominal;
 
 }

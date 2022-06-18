@@ -2,6 +2,8 @@ package timuraya.invoice_biaya_operational.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @Author : Ragil Gilang Maulana
  * @Date : 17/06/22
@@ -11,6 +13,6 @@ import lombok.Data;
 public class ValidasiPengajuanDto {
     private Long id;
     private String noPengajuan;
-    private String amount;
+    private BigDecimal amount;
     private String status;
 }

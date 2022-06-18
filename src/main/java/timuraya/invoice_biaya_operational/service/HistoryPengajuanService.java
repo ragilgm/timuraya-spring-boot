@@ -67,14 +67,12 @@ public class HistoryPengajuanService {
         HistoryPengajuan historyPengajuan = new HistoryPengajuan();
         historyPengajuan.setBiodata(biodata);
         historyPengajuan.setPengajuan(pengajuan);
-        historyPengajuan.setNominal(historyPengajuanRequestDto.getNominal());
         historyPengajuan.setCatatan(historyPengajuanRequestDto.getCatatan());
         historyPengajuan.setStatus(historyPengajuanRequestDto.getStatus());
 
         if(historyPengajuan.getStatus().equals(HistoryPengajuan.Status.REJECT)){
             pengajuan.setStatus(Pengajuan.Status.REJECT);
         }else {
-            pengajuan.setJumlah(historyPengajuanRequestDto.getNominal());
             pengajuan.setStatus(Pengajuan.Status.getStatusByApproveBy(biodata.getJabatan()));
         }
 
@@ -145,7 +143,7 @@ public class HistoryPengajuanService {
                 "\n" +
                 "<tr style=\"height: 36px; border-bottom: 5px solid #e9eceb;\">\n" +
                 "  <td style=\"height: 36px; width: 40.4%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+pengajuan.getKegiatan()+"</span></td>\n" +
-                "  <td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</span>\n" +
+//                "  <td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</span>\n" +
                 "  </td>\n" +
                 "</tr>\n" +
                 "\n" +
@@ -163,7 +161,7 @@ public class HistoryPengajuanService {
                 "\n" +
                 "<tr style=\"height: 10px; border-bottom: 5px solid #e9eceb;\">\n" +
                 "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\">Total</span></span></strong></span></td>\n" +
-                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</strong></span></td>\n" +
+//                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</strong></span></td>\n" +
                 "</tr>\n" +
                 "\n" +
                 "</tbody>\n" +

@@ -4,7 +4,9 @@ import lombok.Data;
 import timuraya.invoice_biaya_operational.entity.HistoryPengajuan;
 import timuraya.invoice_biaya_operational.entity.Pengajuan;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author : Ragil Gilang Maulana
@@ -18,7 +20,6 @@ public class HistoryPengajuanDto {
     private BiodataDto biodata;
     private HistoryPengajuan.Status status;
     private String catatan;
-    private String nominal;
 
     @Data
     public static class  PengajuanDto {
@@ -28,7 +29,8 @@ public class HistoryPengajuanDto {
         private String gender;
         private String kegiatan;
         private String keterangan;
-        private String jumlah;
+        private BigDecimal jumlah;
+        private List<ItemDto> items;
         private String divisi;
         private String tanggal;
         private String terbilang;
@@ -37,6 +39,13 @@ public class HistoryPengajuanDto {
         private LocalDateTime tanggalDibuat;
         private LocalDateTime tanggalDiupdate;
     }
+
+    @Data
+    public static class ItemDto{
+        private String nama;
+        private BigDecimal harga;
+    }
+
 
     @Data
     public static class BiodataDto {

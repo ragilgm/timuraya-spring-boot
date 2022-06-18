@@ -1,11 +1,10 @@
 package timuraya.invoice_biaya_operational.dto;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import timuraya.invoice_biaya_operational.entity.HistoryPengajuan;
 import timuraya.invoice_biaya_operational.entity.Pengajuan;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +22,8 @@ public class PengajuanDto {
     private String gender;
     private String kegiatan;
     private String keterangan;
-    private String jumlah;
+    private List<ItemDto> items;
+    private BigDecimal jumlah;
     private String divisi;
     private String tanggal;
     private String terbilang;
@@ -38,10 +38,16 @@ public class PengajuanDto {
         private BiodataDto biodata;
         private HistoryPengajuan.Status status;
         private String catatan;
-        private String nominal;
         private LocalDateTime tanggalDibuat;
         private LocalDateTime tanggalDiupdate;
 
+    }
+
+
+    @Data
+    public static class ItemDto{
+        private String nama;
+        private BigDecimal harga;
     }
 
     }

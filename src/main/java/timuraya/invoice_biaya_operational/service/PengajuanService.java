@@ -19,13 +19,17 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import timuraya.invoice_biaya_operational.dto.PengajuanDto;
 import timuraya.invoice_biaya_operational.dto.PengajuanRequestDto;
 import timuraya.invoice_biaya_operational.dto.ValidasiPengajuanDto;
+import timuraya.invoice_biaya_operational.entity.Item;
 import timuraya.invoice_biaya_operational.entity.Pengajuan;
+import timuraya.invoice_biaya_operational.repository.ItemRepository;
 import timuraya.invoice_biaya_operational.repository.PengajuanRepository;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -42,8 +46,8 @@ import java.util.stream.Collectors;
 public class PengajuanService {
 
     private final PengajuanRepository pengajuanRepository;
+    private final ItemRepository itemRepository;
     private final MapperFacade mapperFacade;
-
     public String generateInvoiceNumber(){
         String prefix="INV";
         String slash = "/";
@@ -53,14 +57,22 @@ public class PengajuanService {
         return prefix+slash+year+slash+UUID.randomUUID().toString().substring(0,8);
     }
 
+    @Transactional
     public PengajuanDto createPengajuan(PengajuanRequestDto pengajuanRequestDto) {
 
         Pengajuan pengajuan = mapperFacade.map(pengajuanRequestDto,Pengajuan.class);
-
+        pengajuan.setJumlah(BigDecimal.valueOf(pengajuan.getItems().stream().mapToInt(data->data.getHarga().intValue()).sum()));
         pengajuan.setNoPengajuan(generateInvoiceNumber());
+        Pengajuan pengajuanSave =  pengajuanRepository.save(pengajuan);
+        pengajuan.getItems().forEach(data-> {
+            data.setPengajuan(pengajuanSave);
+            Item item = mapperFacade.map(data,Item.class);
+            itemRepository.save(item);
+        });
+
         pengajuan.setStatus(Pengajuan.Status.SUB);
 
-        return mapperFacade.map(pengajuanRepository.save(pengajuan),PengajuanDto.class);
+        return mapperFacade.map(pengajuan,PengajuanDto.class);
     }
 
     public List<PengajuanDto> getPengajuan() {
@@ -74,13 +86,22 @@ public class PengajuanService {
                 .orElseThrow(()->new NotFoundException("Pengajuan tidak di temukan"));
     }
 
+    @Transactional
     public PengajuanDto updatePengajuan(Long id, PengajuanRequestDto pengajuanRequestDto) throws NotFoundException {
         return pengajuanRepository.findById(id).map(data-> {
             data.setKegiatan(pengajuanRequestDto.getKegiatan());
             data.setKeterangan(pengajuanRequestDto.getKeterangan());
-            data.setJumlah(pengajuanRequestDto.getJumlah());
             data.setDivisi(pengajuanRequestDto.getDivisi());
             pengajuanRepository.save(data);
+            itemRepository.deleteAll(data.getItems());
+            pengajuanRequestDto.getItems().forEach(item-> {
+                Item itemUpdate = mapperFacade.map(item,Item.class);
+                itemUpdate.setPengajuan(data);
+                itemRepository.save(itemUpdate);
+            });
+            data.setItems(pengajuanRequestDto.getItems().stream()
+                    .map(item-> mapperFacade.map(item,Item.class)).collect(Collectors.toList()));
+
             return mapperFacade.map(data,PengajuanDto.class);
         }).orElseThrow(()-> new NotFoundException(""));
     }
