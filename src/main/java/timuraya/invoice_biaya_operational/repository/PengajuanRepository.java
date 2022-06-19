@@ -1,6 +1,7 @@
 package timuraya.invoice_biaya_operational.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import timuraya.invoice_biaya_operational.entity.Biodata;
 import timuraya.invoice_biaya_operational.entity.Pengajuan;
@@ -11,5 +12,5 @@ import timuraya.invoice_biaya_operational.entity.Pengajuan;
  **/
 
 @Repository
-public interface PengajuanRepository extends JpaRepository<Pengajuan,Long> {
+public interface PengajuanRepository extends JpaRepository<Pengajuan,Long>, JpaSpecificationExecutor<Pengajuan> {
 }

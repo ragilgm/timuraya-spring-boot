@@ -17,6 +17,7 @@ public class PengajuanRequestDto {
     private List<ItemRequestDto> items;
     private String jumlah;
     private String divisi;
+    private String noPengajuan;
 
     @Data
     public static class ItemRequestDto{

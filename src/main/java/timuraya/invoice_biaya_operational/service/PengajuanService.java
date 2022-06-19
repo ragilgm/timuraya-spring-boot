@@ -75,8 +75,14 @@ public class PengajuanService {
         return mapperFacade.map(pengajuan,PengajuanDto.class);
     }
 
-    public List<PengajuanDto> getPengajuan() {
-        return pengajuanRepository.findAll()
+    public List<PengajuanDto> getPengajuan(PengajuanRequestDto pengajuanRequestDto) {
+        GenericSpecificationService<Pengajuan> specificationService = new GenericSpecificationService<>();
+        specificationService.add(new SearchCriteria<>("kegiatan",pengajuanRequestDto.getKegiatan(), SearchCriteria.SearchOperation.EQUAL));
+        specificationService.add(new SearchCriteria<>("keterangan",pengajuanRequestDto.getKegiatan(), SearchCriteria.SearchOperation.EQUAL));
+        specificationService.add(new SearchCriteria<>("jumlah",pengajuanRequestDto.getJumlah(), SearchCriteria.SearchOperation.EQUAL));
+        specificationService.add(new SearchCriteria<>("divisi",pengajuanRequestDto.getDivisi(), SearchCriteria.SearchOperation.EQUAL));
+        specificationService.add(new SearchCriteria<>("noPengajuan",pengajuanRequestDto.getNoPengajuan(), SearchCriteria.SearchOperation.EQUAL));
+        return pengajuanRepository.findAll(specificationService)
                 .stream().map(data->mapperFacade.map(data,PengajuanDto.class))
                 .collect(Collectors.toList());
     }

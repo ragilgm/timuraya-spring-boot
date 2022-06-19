@@ -51,8 +51,8 @@ public class PengajuanController extends BaseController  {
 
 
     @GetMapping
-    public List<PengajuanDto> getPengajuan() {
-        return  pengajuanService.getPengajuan();
+    public List<PengajuanDto> getPengajuan(PengajuanRequestDto pengajuanRequestDto) {
+        return  pengajuanService.getPengajuan(pengajuanRequestDto);
     }
 
     @GetMapping("/{id}")
