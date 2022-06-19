@@ -134,11 +134,17 @@ public class HistoryPengajuanService {
                 "<tbody>\n" +
                 "<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
                 "\n" +
-                "<td style=\"height: 36px; width: 40.4%; vertical-align: middle;\" align=\"left\">\n" +
+                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
                 "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Item</strong>\n" +
                 "</td>\n" +
+                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Qty</strong>\n" +
+                "</td>\n" +
+                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Harga</strong>\n" +
+                "</td>\n" +
                 "\n" +
-                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block; margin-right:50px\"><strong>Harga</strong></span></td>";
+                "<td style=\"height: 36px; width: 30%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block; margin-right:50px\"><strong>Total</strong></span></td>";
 
                 String footer = "\n" +
                         "</tbody>\n" +
@@ -187,8 +193,10 @@ public class HistoryPengajuanService {
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(header);
                 pengajuan.getItems().forEach(item-> stringBuilder.append("<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
-                        "  <td style=\"height: 36px; width: 40.4%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getNama()+"</span></td>\n" +
-                        "  <td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(item.getHarga().intValue())+"</span>\n" +
+                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getNama()+"</span></td>\n" +
+                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getQty()+"</span></td>\n" +
+                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+currencyFormat(item.getHarga().intValue())+"</span></td>\n" +
+                        "  <td style=\"height: 36px; width: 30%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(item.getTotal().intValue())+"</span>\n" +
                         "  </td>\n" +
                         "</tr>"));
 

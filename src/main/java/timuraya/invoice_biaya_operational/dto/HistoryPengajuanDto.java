@@ -43,7 +43,9 @@ public class HistoryPengajuanDto {
     @Data
     public static class ItemDto{
         private String nama;
+        private int qty;
         private BigDecimal harga;
+        private BigDecimal total;
     }
 
 

@@ -61,16 +61,19 @@ public class PengajuanService {
     public PengajuanDto createPengajuan(PengajuanRequestDto pengajuanRequestDto) {
 
         Pengajuan pengajuan = mapperFacade.map(pengajuanRequestDto,Pengajuan.class);
-        pengajuan.setJumlah(BigDecimal.valueOf(pengajuan.getItems().stream().mapToInt(data->data.getHarga().intValue()).sum()));
         pengajuan.setNoPengajuan(generateInvoiceNumber());
+        pengajuan.setStatus(Pengajuan.Status.SUB);
+        pengajuan.setJumlah(BigDecimal.valueOf(pengajuan.getItems().stream()
+                .mapToInt(data->data.getHarga().intValue()*data.getQty()).sum()));
+
         Pengajuan pengajuanSave =  pengajuanRepository.save(pengajuan);
         pengajuan.getItems().forEach(data-> {
             data.setPengajuan(pengajuanSave);
             Item item = mapperFacade.map(data,Item.class);
+            item.setTotal(item.getHarga().multiply(BigDecimal.valueOf(item.getQty())));
             itemRepository.save(item);
         });
 
-        pengajuan.setStatus(Pengajuan.Status.SUB);
 
         return mapperFacade.map(pengajuan,PengajuanDto.class);
     }
@@ -98,10 +101,13 @@ public class PengajuanService {
             data.setKegiatan(pengajuanRequestDto.getKegiatan());
             data.setKeterangan(pengajuanRequestDto.getKeterangan());
             data.setDivisi(pengajuanRequestDto.getDivisi());
+            data.setJumlah(BigDecimal.valueOf(pengajuanRequestDto.getItems().stream()
+                    .mapToInt(item->item.getHarga().intValue()*item.getQty()).sum()));
             pengajuanRepository.save(data);
             itemRepository.deleteAll(data.getItems());
             pengajuanRequestDto.getItems().forEach(item-> {
                 Item itemUpdate = mapperFacade.map(item,Item.class);
+                itemUpdate.setTotal(item.getHarga().multiply(BigDecimal.valueOf(item.getQty())));
                 itemUpdate.setPengajuan(data);
                 itemRepository.save(itemUpdate);
             });

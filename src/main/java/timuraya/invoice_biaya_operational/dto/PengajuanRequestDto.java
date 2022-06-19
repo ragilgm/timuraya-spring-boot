@@ -22,6 +22,7 @@ public class PengajuanRequestDto {
     @Data
     public static class ItemRequestDto{
         private String nama;
+        private int qty;
         private BigDecimal harga;
     }
 }

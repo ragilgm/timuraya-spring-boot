@@ -31,5 +31,7 @@ public class Item {
     private Pengajuan pengajuan;
 
     private String nama;
+    private int qty;
     private BigDecimal harga;
+    private BigDecimal total;
 }
