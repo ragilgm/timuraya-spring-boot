@@ -3,8 +3,11 @@ package timuraya.invoice_biaya_operational.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-import timuraya.invoice_biaya_operational.entity.Biodata;
 import timuraya.invoice_biaya_operational.entity.Pengajuan;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author : Ragil Gilang Maulana
@@ -13,4 +16,7 @@ import timuraya.invoice_biaya_operational.entity.Pengajuan;
 
 @Repository
 public interface PengajuanRepository extends JpaRepository<Pengajuan,Long>, JpaSpecificationExecutor<Pengajuan> {
+
+    List<Pengajuan> findAllByTanggalDibuatBetween(LocalDateTime dateFrom, LocalDateTime dateTo);
+
 }
