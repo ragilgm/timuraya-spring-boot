@@ -100,7 +100,7 @@ public class HistoryPengajuanService {
 
     public void generateLetter(Pengajuan pengajuan) throws IOException {
 
-        String HTML = "<!DOCTYPE html>\n" +
+        String header = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
@@ -125,7 +125,7 @@ public class HistoryPengajuanService {
                 "<table style=\"margin-top: 16px; height: 18px; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
                 "<tbody>\n" +
                 "<tr style=\"height: 18px;\">\n" +
-                "<td style=\"height: 18px;\"><strong style=\"font-size: 13px;\">Detail Pengajuan :</strong><hr style=\"border: none; border-bottom: 5px solid #FFFFFF; margin: 7px 0; margin-top: 6px;\" /></td>\n" +
+                "<td style=\"height: 18px;\"><strong style=\"font-size: 13px;\">Detail Pengajuan :</strong><hr style=\"border: none; border-bottom: 1px solid #FFFFFF; margin: 7px 0; margin-top: 6px;\" /></td>\n" +
                 "</tr>\n" +
                 "</tbody>\n" +
                 "</table>\n" +
@@ -138,61 +138,65 @@ public class HistoryPengajuanService {
                 "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Item</strong>\n" +
                 "</td>\n" +
                 "\n" +
-                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block; margin-right:50px\"><strong>Harga</strong></span></td>\n" +
-                "\n" +
-                "\n" +
-                "<tr style=\"height: 36px; border-bottom: 5px solid #e9eceb;\">\n" +
-                "  <td style=\"height: 36px; width: 40.4%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+pengajuan.getKegiatan()+"</span></td>\n" +
-//                "  <td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</span>\n" +
-                "  </td>\n" +
-                "</tr>\n" +
-                "\n" +
-                "</tbody>\n" +
-                "</table>\n" +
-                "<br />\n" +
-                "<table style=\"margin-top: 16px; height: 18px; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
-                "<tbody>\n" +
-                "\n" +
-                "\n" +
-                "</tbody>\n" +
-                "</table>\n" +
-                "<table style=\"height: 32px; width: 99.4286%; border-collapse: collapse;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
-                "<tbody>\n" +
-                "\n" +
-                "<tr style=\"height: 10px; border-bottom: 5px solid #e9eceb;\">\n" +
-                "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\">Total</span></span></strong></span></td>\n" +
-//                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>"+currencyFormat(Integer.parseInt(pengajuan.getJumlah()))+"</strong></span></td>\n" +
-                "</tr>\n" +
-                "\n" +
-                "</tbody>\n" +
-                "\n" +
-                "<tbody>\n" +
-                "\n" +
-                "<tr style=\"height: 120px; margin-top:10px;\">\n" +
-                "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
-                "<td style=\"height: 120px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>Mengetahui</strong></span></td>\n" +
-                "</tr>\n" +
-                "\n" +
-                "<tr style=\" margin-top:30px;\">\n" +
-                "<td style=\"height: 10x; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><span><span style=\"color: black;\"><span style=\"font-size: 9px; \">Note : Bukti untuk pengajuan ke kasir</span></span></span></span></td>\n" +
-                "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:60px;\"><strong>Nur Laila</strong></span></td>\n" +
-                "</tr>\n" +
-                "\n" +
-                "<tr style=\" \">\n" +
-                "<td style=\" width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
-                "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 10px; color: #333; display: inline-block; margin-right:45px;\"><span>Kepala Keuangan</span></span></td>\n" +
-                "</tr>\n" +
-                "\n" +
-                "\n" +
-                "</tbody>\n" +
-                "</table>\n" +
-                "</div>\n" +
-                "</div>\n" +
-                "</div></body></html>";
+                "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block; margin-right:50px\"><strong>Harga</strong></span></td>";
+
+                String footer = "\n" +
+                        "</tbody>\n" +
+                        "</table>\n" +
+                        "<br />\n" +
+                        "<table style=\"margin-top: 16px; height: 18px; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+                        "<tbody>\n" +
+                        "\n" +
+                        "\n" +
+                        "</tbody>\n" +
+                        "</table>\n" +
+                        "<table style=\"height: 32px; width: 99.4286%; border-collapse: collapse;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+                        "<tbody>\n" +
+                        "\n" +
+                        "<tr style=\"height: 10px; border-bottom: 1px solid #e9eceb;\">\n" +
+                        "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\">Total</span></span></strong></span></td>\n" +
+                        "<td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>"+currencyFormat(pengajuan.getJumlah().intValue())+"</strong></span></td>\n" +
+                        "</tr>\n" +
+                        "\n" +
+                        "</tbody>\n" +
+                        "\n" +
+                        "<tbody>\n" +
+                        "\n" +
+                        "<tr style=\"height: 120px; margin-top:10px;\">\n" +
+                        "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
+                        "<td style=\"height: 120px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>Mengetahui</strong></span></td>\n" +
+                        "</tr>\n" +
+                        "\n" +
+                        "<tr style=\" margin-top:30px;\">\n" +
+                        "<td style=\"height: 10x; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><span><span style=\"color: black;\"><span style=\"font-size: 9px; \">Note : Bukti untuk pengajuan ke kasir</span></span></span></span></td>\n" +
+                        "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:60px;\"><strong>Nur Laila</strong></span></td>\n" +
+                        "</tr>\n" +
+                        "\n" +
+                        "<tr style=\" \">\n" +
+                        "<td style=\" width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
+                        "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 10px; color: #333; display: inline-block; margin-right:45px;\"><span>Kepala Keuangan</span></span></td>\n" +
+                        "</tr>\n" +
+                        "\n" +
+                        "\n" +
+                        "</tbody>\n" +
+                        "</table>\n" +
+                        "</div>\n" +
+                        "</div>\n" +
+                        "</div></body></html>";
+
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append(header);
+                pengajuan.getItems().forEach(item-> stringBuilder.append("<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
+                        "  <td style=\"height: 36px; width: 40.4%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getNama()+"</span></td>\n" +
+                        "  <td style=\"height: 36px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(item.getHarga().intValue())+"</span>\n" +
+                        "  </td>\n" +
+                        "</tr>"));
+
+                stringBuilder.append(footer);
 
         String fileName = "src/main/resources/letter/"+ UUID.randomUUID()+".pdf";
 
-        HtmlConverter.convertToPdf(HTML, new FileOutputStream(fileName));
+        HtmlConverter.convertToPdf(stringBuilder.toString(), new FileOutputStream(fileName));
 
         pengajuan.setLetterFile(fileName);
 
