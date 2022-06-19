@@ -1,6 +1,5 @@
 package timuraya.invoice_biaya_operational.controller;
 
-import com.itextpdf.text.DocumentException;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +14,6 @@ import timuraya.invoice_biaya_operational.dto.PengajuanRequestDto;
 import timuraya.invoice_biaya_operational.dto.ValidasiPengajuanDto;
 import timuraya.invoice_biaya_operational.service.PengajuanService;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 

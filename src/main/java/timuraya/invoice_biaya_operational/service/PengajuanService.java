@@ -132,7 +132,7 @@ public class PengajuanService {
            try {
                in = new FileInputStream(data.getLetterFile());
                var byteAarray = IOUtils.toByteArray(in);
-               return addQRCode(byteAarray,"http://localhost:8080/pengajuan/"+data.getId()+"/validate",QRCodePosition.TOP_RIGHT);
+               return addQRCode(byteAarray,"http://localhost:8080/pengajuan/letter/"+data.getId()+"/validate",QRCodePosition.TOP_RIGHT);
            } catch (IOException e) {
                 log.error(e.getMessage());
             }
