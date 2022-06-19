@@ -113,7 +113,10 @@ public class PengajuanService {
     }
 
     public void deletePengajuan(Long id) {
-         pengajuanRepository.findById(id).ifPresent(pengajuanRepository::delete);
+         pengajuanRepository.findById(id).ifPresent(data-> {
+             itemRepository.deleteAll(data.getItems());
+             pengajuanRepository.delete(data);
+         });
     }
 
 
