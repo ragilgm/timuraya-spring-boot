@@ -27,15 +27,10 @@ public class Pengajuan {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String noPengajuan;
-   private String nama;
-   private String gender;
    private String kegiatan;
    private String keterangan;
    private BigDecimal jumlah;
    private String divisi;
-   private String tanggal;
-   private String terbilang;
-   private String kadiv;
    private String letterFile;
    @Builder.Default
    private boolean isValidate = false;
