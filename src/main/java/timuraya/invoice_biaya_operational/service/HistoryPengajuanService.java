@@ -111,6 +111,7 @@ public class HistoryPengajuanService {
                 "<h1 style=\"margin-top: 15px; font-size: 24px; margin-left:250px;\">INVOICE </h1>\n" +
                 "<p style=\"font-weight: 100; font-size: 13px; padding: 0 0px 0px 0; margin: 0; vertical-align: middle;\">No. Pengajuan : "+pengajuan.getNoPengajuan()+"</p>\n" +
                 "<p style=\"font-weight: 100; font-size: 13px; padding: 0 0px 0px 0; margin: 0; vertical-align: middle; margin-top:10px;\">Tanggal Pengajuan : "+dateTimeFormat(pengajuan.getTanggalDibuat())+"</p>\n" +
+                "<p style=\"font-weight: 100; font-size: 13px; padding: 0 0px 0px 0; margin: 0; vertical-align: middle; margin-top:10px;\">Kegiatan : "+pengajuan.getKegiatan()+"</p>\n" +
                 "<p style=\"font-weight: 600; font-size: 18px; padding: 0 0px 0px 0; margin: 0; vertical-align: middle;\">&nbsp;</p>\n" +
                 "\n" +
                 "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
@@ -125,7 +126,7 @@ public class HistoryPengajuanService {
                 "<table style=\"margin-top: 16px; height: 18px; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
                 "<tbody>\n" +
                 "<tr style=\"height: 18px;\">\n" +
-                "<td style=\"height: 18px;\"><strong style=\"font-size: 13px;\">Detail Pengajuan : "+pengajuan.getKegiatan()+"</strong><hr style=\"border: none; border-bottom: 1px solid #FFFFFF; margin: 7px 0; margin-top: 6px;\" /></td>\n" +
+                "<td style=\"height: 18px;\"><strong style=\"font-size: 13px;\">Detail Pengajuan :</strong><hr style=\"border: none; border-bottom: 1px solid #FFFFFF; margin: 7px 0; margin-top: 6px;\" /></td>\n" +
                 "</tr>\n" +
                 "</tbody>\n" +
                 "</table>\n" +
