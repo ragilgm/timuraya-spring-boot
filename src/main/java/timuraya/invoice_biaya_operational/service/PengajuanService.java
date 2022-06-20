@@ -28,9 +28,13 @@ import timuraya.invoice_biaya_operational.entity.Pengajuan;
 import timuraya.invoice_biaya_operational.repository.ItemRepository;
 import timuraya.invoice_biaya_operational.repository.PengajuanRepository;
 
+import javax.persistence.OrderBy;
+import javax.persistence.criteria.Predicate;
 import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -86,8 +90,8 @@ public class PengajuanService {
         specificationService.add(new SearchCriteria<>("divisi",pengajuanRequestDto.getDivisi(), SearchCriteria.SearchOperation.EQUAL));
         specificationService.add(new SearchCriteria<>("noPengajuan",pengajuanRequestDto.getNoPengajuan(), SearchCriteria.SearchOperation.EQUAL));
         return pengajuanRepository.findAll(specificationService)
-                .stream().map(data->mapperFacade.map(data,PengajuanDto.class))
-                .collect(Collectors.toList());
+                .stream().map(data -> mapperFacade.map(data, PengajuanDto.class))
+                .sorted(Comparator.comparing(PengajuanDto::getTanggalDibuat).reversed()).collect(Collectors.toList());
     }
 
     public PengajuanDto getPengajuanById(Long id) throws NotFoundException {
