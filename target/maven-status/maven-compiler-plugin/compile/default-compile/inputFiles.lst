@@ -1,6 +1,9 @@
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/entity/Biodata.java
+/Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/service/GenericSpecificationService.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/dto/BiodataDto.java
+/Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/controller/ReportController.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/dto/LoginRequestDto.java
+/Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/service/SearchCriteria.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/entity/Pengajuan.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/repository/PengajuanHistoryRepository.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/entity/User.java
@@ -8,7 +11,9 @@
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/repository/BiodataRepository.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/dto/UserDto.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/repository/PengajuanRepository.java
+/Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/service/ReportService.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/service/UserService.java
+/Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/dto/ReportDto.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/service/HistoryPengajuanService.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/controller/PengajuanController.java
 /Users/g2academy/Desktop/timuraya-spring-boot/src/main/java/timuraya/invoice_biaya_operational/controller/UserController.java
