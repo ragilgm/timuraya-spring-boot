@@ -1,12 +1,6 @@
 package timuraya.invoice_biaya_operational.service;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.itextpdf.html2pdf.attach.ITagWorkerFactory;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,16 +15,15 @@ import timuraya.invoice_biaya_operational.repository.BiodataRepository;
 import timuraya.invoice_biaya_operational.repository.PengajuanHistoryRepository;
 import timuraya.invoice_biaya_operational.repository.PengajuanRepository;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Author : Ragil Gilang Maulana
@@ -135,17 +128,25 @@ public class HistoryPengajuanService {
                 "<tbody>\n" +
                 "<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
                 "\n" +
-                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
-                "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Item</strong>\n" +
-                "</td>\n" +
-                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
-                "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Qty</strong>\n" +
-                "</td>\n" +
-                "<td style=\"height: 36px; width: 30%; vertical-align: middle;\" align=\"left\">\n" +
-                "<strong style=\"font-size: 15px; margin-left:50px; color: #00000; display: inline-block;\">Harga</strong>\n" +
+                "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; color: #00000; display: inline-block;\">No.</strong>\n" +
                 "</td>\n" +
                 "\n" +
-                "<td style=\"height: 36px; width: 30%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block; margin-right:50px\"><strong>Total</strong></span></td>";
+                "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; color: #00000; display: inline-block;\">Kode</strong>\n" +
+                "</td>\n" +
+                "\n" +
+                "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px;  color: #00000; display: inline-block;\">Item/Nama</strong>\n" +
+                "</td>\n" +
+                "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; color: #00000; display: inline-block;\">Qty</strong>\n" +
+                "</td>\n" +
+                "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                "<strong style=\"font-size: 15px; color: #00000; display: inline-block;\">Harga</strong>\n" +
+                "</td>\n" +
+                "<td style=\"height: 36px; width: 10%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block;\"><strong>Total</strong></span></td>\n" +
+                "</tr>";
 
                 String footer = "\n" +
                         "</tbody>\n" +
@@ -169,10 +170,20 @@ public class HistoryPengajuanService {
                         "\n" +
                         "<tbody>\n" +
                         "\n" +
-                        "<tr style=\"height: 120px; margin-top:10px;\">\n" +
+                        "<tr style=\"height: 10px; margin-top:10px;\">\n" +
+                        "\n" +
                         "<td style=\"height: 10px; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
-                        "<td style=\"height: 120px; width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px;\"><strong>Mengetahui</strong></span></td>\n" +
+                        "\n" +
+                        "\n" +
+                        "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:50px; margin-top:100px;\"><strong>Mengetahui</strong></span></td>\n" +
                         "</tr>\n" +
+                        "\n" +
+                        "<tr style=\" margin-top:30px;\">\n" +
+                        "<td style=\"height: 10x; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><span><span style=\"color: black;\"><span style=\"font-size: 9px; \"></span></span></span></span></td>\n" +
+                        "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; display: inline-block; margin-right:60px;\"><strong><img src=\"src/main/resources/ttd-barcode.png\" style=\"height:50px;width:50px;\"/></strong></span></td>\n" +
+                        "</tr>\n" +
+                        "\n" +
+                        "\n" +
                         "\n" +
                         "<tr style=\" margin-top:30px;\">\n" +
                         "<td style=\"height: 10x; width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><span><span style=\"color: black;\"><span style=\"font-size: 9px; \">Note : Bukti untuk pengajuan ke kasir</span></span></span></span></td>\n" +
@@ -182,9 +193,7 @@ public class HistoryPengajuanService {
                         "<tr style=\" \">\n" +
                         "<td style=\" width: 28.246%; vertical-align: middle;\" align=\"left\"><span style=\"color: #000000;\"><strong><span style=\"color: black;\"><span style=\"font-size: 13px; margin-left:50px\"></span></span></strong></span></td>\n" +
                         "<td style=\" width: 56%;\" align=\"right\"><span style=\"font-size: 10px; color: #333; display: inline-block; margin-right:45px;\"><span>Kepala Keuangan</span></span></td>\n" +
-                        "</tr>\n" +
-                        "\n" +
-                        "\n" +
+                        "</tr>\n"+
                         "</tbody>\n" +
                         "</table>\n" +
                         "</div>\n" +
@@ -193,13 +202,32 @@ public class HistoryPengajuanService {
 
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append(header);
-                pengajuan.getItems().forEach(item-> stringBuilder.append("<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
-                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getNama()+"</span></td>\n" +
-                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+item.getQty()+"</span></td>\n" +
-                        "  <td style=\"height: 36px; width: 30%;\" align=\"left\"><span style=\"font-size: 12px; color: #00000; display: inline-block; margin-left:50px\">"+currencyFormat(item.getHarga().intValue())+"</span></td>\n" +
-                        "  <td style=\"height: 36px; width: 30%;\" align=\"right\"><span style=\"font-size: 12px; color: #333; text-transform: uppercase; display: inline-block; margin-right:50px;\">"+currencyFormat(item.getTotal().intValue())+"</span>\n" +
-                        "  </td>\n" +
-                        "</tr>"));
+                AtomicInteger index = new AtomicInteger(1);
+                pengajuan.getItems().forEach(item-> {
+                            stringBuilder.append("<tr style=\"height: 36px; border-bottom: 1px solid #e9eceb;\">\n" +
+                                    "\n" +
+                                    "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                                    "<p style=\"font-size: 15px; color: #00000; display: inline-block;\">"+index.get()+"</p>\n" +
+                                    "</td>\n" +
+                                    "\n" +
+                                    "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                                    "<p style=\"font-size: 15px; color: #00000; display: inline-block;\">"+UUID.randomUUID().toString().substring(0,6)+"</p>\n" +
+                                    "</td>\n" +
+                                    "\n" +
+                                    "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                                    "<p style=\"font-size: 15px;  color: #00000; display: inline-block;\">"+item.getNama()+"</p>\n" +
+                                    "</td>\n" +
+                                    "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                                    "<p style=\"font-size: 15px; color: #00000; display: inline-block;\">"+item.getQty()+"</p>\n" +
+                                    "</td>\n" +
+                                    "<td style=\"height: 36px; width: 10%; vertical-align: middle;\" align=\"left\">\n" +
+                                    "<p style=\"font-size: 15px; color: #00000; display: inline-block;\">"+currencyFormat(item.getHarga().intValue())+"</p>\n" +
+                                    "</td>\n" +
+                                    "<td style=\"height: 36px; width: 10%;\" align=\"right\"><span style=\"font-size: 15px; color: #333; display: inline-block;\"><p>"+currencyFormat(item.getTotal().intValue())+"</p></span></td>\n" +
+                                    "</tr>");
+                            index.addAndGet(1);
+
+                        });
 
                 stringBuilder.append(footer);
 
