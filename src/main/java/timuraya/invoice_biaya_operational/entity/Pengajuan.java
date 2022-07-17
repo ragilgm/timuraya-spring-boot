@@ -56,7 +56,7 @@ public class Pengajuan {
        SUB("ADMIN_PENGAJUAN"),
       APPROVED_BENDAHARA("ADMIN_BENDAHARA"),
 //      APPROVED_KEPALA_KEUANGAN("KEPALA_KEUANGAN"),
-      APPROVED("ADMIN_KEPALA_KEUANGAN"),
+      APPROVED("KEPALA_KEUANGAN"),
       REJECT("");
 
        private String approvedBy;
