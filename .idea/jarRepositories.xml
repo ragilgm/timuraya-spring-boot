@@ -3,6 +3,21 @@
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
       <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="http://nexus.doku.com/repository/maven-central/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dokuReleases" />
+      <option name="name" value="dokuReleases" />
+      <option name="url" value="http://nexus.doku.com/repository/maven-releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dokuSnapshot" />
+      <option name="name" value="dokuSnapshot" />
+      <option name="url" value="http://nexus.doku.com/repository/maven-snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://nexus.astrapay.com/repository/maven-public/" />
     </remote-repository>
