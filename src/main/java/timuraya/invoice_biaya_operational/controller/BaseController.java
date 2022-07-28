@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @Date : 08/06/22
  **/
 
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin("http://54.193.120.114/backend")
 public class BaseController {
 }

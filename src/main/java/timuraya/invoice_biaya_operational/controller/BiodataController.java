@@ -25,8 +25,8 @@ public class BiodataController extends BaseController {
     }
 
     @GetMapping
-    public List<Biodata> getBiodata(){
-        return biodataService.getBiodata();
+    public Object getBiodata(String request){
+        return biodataService.getBiodata(request);
     }
 
 
