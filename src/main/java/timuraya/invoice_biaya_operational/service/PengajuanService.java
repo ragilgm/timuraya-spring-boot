@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,8 @@ public class PengajuanService {
     private final PengajuanRepository pengajuanRepository;
     private final ItemRepository itemRepository;
     private final MapperFacade mapperFacade;
+    @Value("${app.home}")
+    private String appHomePath;
     public String generateInvoiceNumber(){
         String prefix="INV";
         String slash = "/";
@@ -134,7 +137,7 @@ public class PengajuanService {
        return pengajuanRepository.findById(id).map(data-> {
            InputStream in = null;
            try {
-               in = new FileInputStream(data.getLetterFile());
+               in = new FileInputStream(appHomePath+data.getLetterFile());
                var byteAarray = IOUtils.toByteArray(in);
                return addQRCode(byteAarray,"http://localhost:8080/pengajuan/letter/"+data.getId()+"/validate",QRCodePosition.TOP_RIGHT);
            } catch (IOException e) {
@@ -208,7 +211,7 @@ public class PengajuanService {
         return pengajuanRepository.findById(id).map(data-> {
             InputStream in = null;
             try {
-                in = new FileInputStream(data.getLetterFile());
+                in = new FileInputStream(appHomePath+data.getLetterFile());
                 var byteAarray = IOUtils.toByteArray(in);
                 byte[] bytes = addQRCode(byteAarray,"http://localhost:8080/pengajuan/letter/"+data.getId()+"/validate",QRCodePosition.TOP_RIGHT);
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);

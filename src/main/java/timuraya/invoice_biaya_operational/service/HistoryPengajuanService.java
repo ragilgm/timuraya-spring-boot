@@ -5,6 +5,7 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import timuraya.invoice_biaya_operational.dto.HistoryPengajuanDto;
 import timuraya.invoice_biaya_operational.dto.HistoryPengajuanRequestDto;
@@ -39,6 +40,8 @@ public class HistoryPengajuanService {
     private final PengajuanHistoryRepository pengajuanHistoryRepository;
     private final BiodataRepository biodataRepository;
     private final MapperFacade mapperFacade;
+    @Value("${app.home}")
+    private String appHomePath;
 
 
     public HistoryPengajuanDto createHistoryPengajuan(HistoryPengajuanRequestDto historyPengajuanRequestDto) throws NotFoundException, IOException {
@@ -231,9 +234,9 @@ public class HistoryPengajuanService {
 
                 stringBuilder.append(footer);
 
-        String fileName = "src/main/resources/letter/"+ UUID.randomUUID()+".pdf";
+        String fileName = "/letter/"+ UUID.randomUUID()+".pdf";
 
-        HtmlConverter.convertToPdf(stringBuilder.toString(), new FileOutputStream(fileName));
+        HtmlConverter.convertToPdf(stringBuilder.toString(), new FileOutputStream(appHomePath+fileName));
 
         pengajuan.setLetterFile(fileName);
 
